@@ -9,7 +9,7 @@
 
 | 文件 | 说明 |
 | --- | --- |
-| `scripts/loader.lua` | **推荐入口**：先弹诊断窗口，再自动挑选可用镜像下载并执行汉化版 |
+| `scripts/loader_v3.lua` | **推荐入口**：先弹诊断窗口，再自动挑选可用镜像下载并执行汉化版 |
 | `scripts/Silence_Hub_V36_Christmas_CN_v3.lua` | **当前版本**：修复 `EFFECTS[kind]` 取值崩溃（内部 key 不再翻译） |
 | `scripts/Silence_Hub_V36_Christmas_CN.lua` | 同内容的历史路径，仅为兼容旧链接保留 |
 | `originals/Silence_Hub_V36_Christmas.lua` | 作者原版，用于对照 / 回滚 |
@@ -23,7 +23,7 @@
 2. 粘贴下面这一行，回车（**推荐用诊断加载器**：它会先弹一个窗口，逐步显示「执行器 / 下载 / 字节数 / 编译 / 运行」的结果，失败也不会静默）：
 
 ```lua
-loadstring(game:HttpGet("https://fastly.jsdelivr.net/gh/3091318935/hanhua-scripts@main/scripts/loader.lua"))()
+loadstring(game:HttpGet("https://fastly.jsdelivr.net/gh/3091318935/hanhua-scripts@main/scripts/loader_v3.lua"))()
 ```
 
 3. 加载完成后按 **右 Shift** 呼出 / 收起面板（浮动圆形按钮同样可以）。
@@ -76,6 +76,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/3091318935/hanhua-scr
 
 ## 更新记录
 
+- **2026-11-07 修复面板构建崩溃（v3）**：特效列表 `for _, kind in ipairs({ "snow", "leaves", "rain", "ghosts", "embers" })` 里的 key 被翻成中文，导致 `EFFECTS[kind]` 取到 `nil`，报 `:5731: attempt to index nil with 'name'`。现在生成器对**纯小写标识符**（`snow`/`rain`/`leaves` 这类内部 key）一律跳过不译，并在写盘前断言 `EFFECTS_LIST_OK=True`、下标里不出现中文（`CN_INDEX_OTHER=0`）。
 - **2026-11-07 修复启动崩溃**：上一版把 `game:GetService("Stats")` 误译成 `game:GetService("统计")`，导致面板加载即失败（报 `'统计' is not a valid Service name`，界面空白）。已为全部引擎 API 字符串加保护通道，并把 `Stats`、`Data Ping` 从翻译表中移除。实测校验：字面量总数 1930/1930 一致、代码结构归一化后完全相同（70270 字符）、Lua 词法扫描 0 错误、`HttpGet` 331/331、`loadstring` 330/330。
 
 
