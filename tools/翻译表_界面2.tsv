@@ -1,0 +1,138 @@
+Hi!|||你好！
+Are you sure?|||确定吗？
+<b><font color='rgb(192, 54, 66)'>Silence Hub loaded</font></b>|||<b><font color='rgb(192, 54, 66)'>Silence Hub 已加载</font></b>
+<b><font color='rgb(192, 54, 66)'>Owner: Rip_Silence (#idkman06483)  |  Co-Owner: WH1T3 (#relayhost) </font></b>|||<b><font color='rgb(192, 54, 66)'>站长：Rip_Silence (#idkman06483)  |  副站长：WH1T3 (#relayhost) </font></b>
+<b><font color='rgb(192, 54, 66)'>GUI: WH1T3 (Co-Owner)  |  Sign text credit: RealblueYT</font></b>|||<b><font color='rgb(192, 54, 66)'>界面：WH1T3（副站长）  |  签名文案鸣谢：RealblueYT</font></b>
+<b><font color='rgb(192, 54, 66)'>Sorry for the delay on V36, thanks for waiting!</font></b>|||<b><font color='rgb(192, 54, 66)'>V36 更新来晚了，感谢等待！</font></b>
+Spooky Theme|||诡异主题
+Creepy Piano|||阴森钢琴
+My Song|||我的歌曲
+[Loadstring Error]|||[加载错误]
+[Loaded Successfully]|||[加载成功]
+[DoorsModesHub] Safe test completed in %.4fs (checksum %d)|||[DoorsModesHub] 安全测试完成，用时 %.4f 秒（校验值 %d）
+Why do you even execute this bro?|||你干嘛真的执行这个啊兄弟？
+SUA STAMINA ACABOU, AGUARDE %ds!|||你的耐力用完了，请等待 %ds！
+Parented: |||已挂载：
+vfx finished|||特效已完成
+the round button|||圆形按钮
+[HalloweenHub] callback error:|||[HalloweenHub] 回调错误：
+Script error (see console)|||脚本错误（详见控制台）
+No description yet.|||暂无说明。
+Type: |||类型：
+Role: |||身份：
+Asks before running: |||运行前确认：
+Leaving so soon?|||这就走了？
+Are you sure you want to close the hub?|||确定要关闭 Hub 吗？
+Minimized. Tap the round button to bring it back.|||已最小化。点圆形按钮把它叫回来。
+Now playing|||正在播放
+Unknown song|||未知歌曲
+Couldn't load \"%s\" (bad id / url / file?)|||加载不了 \"%s\"（ID / 链接 / 文件有问题？）
+Paste an audio ID in the Music tab first.|||请先在音乐页粘贴音频 ID。
+Now playing: %s|||正在播放：%s
+This song won't load. Wrong id, or the audio is private.|||这首歌放不出来。ID 错了，或者音频是私有的。
+Playlist is empty. Play an ID, then tap Save.|||播放列表是空的。先播放一个 ID，再点保存。
+That doesn't look like an audio ID.|||这看着不像一个音频 ID。
+That ID is not an audio asset.|||这个 ID 不是音频素材。
+Loading %s...|||正在加载 %s...
+Nothing to save yet. Play an ID first.|||还没东西可保存，先播放一个 ID。
+Already in your playlist.|||已经在你的播放列表里了。
+Saved: %s|||已保存：%s
+Nothing selected yet.\nPaste an audio ID below and tap Play.|||还没选中歌曲。\n在下面粘贴音频 ID 然后点播放。
+The script link is dead (404). It may have been deleted.|||脚本链接已失效（404），可能已经被删了。
+Your executor blocked the download.|||你的执行器拦截了这次下载。
+The download timed out. Try again.|||下载超时了，再试一次。
+Your executor doesn't support loadstring.|||你的执行器不支持 loadstring。
+⏳ %s is already running.|||⏳ %s 已经在运行了。
+▶ Loading %s...|||▶ 正在加载 %s...
+%s finished starting (%.1fs)|||%s 启动完成（%.1f 秒）
+ failed:\n||| 失败：\n
+%s failed: %s|||%s 失败：%s
+Removed from favorites|||已取消收藏
+Added to favorites|||已加入收藏
+Are you sure you want to execute %s?|||确定要执行 %s 吗？
+↕ Default|||↕ 默认
+🆕 Newest|||🆕 最新
+↕ Sorting: %s|||↕ 排序：%s
+Search %d scripts or creators...|||搜索 %d 个脚本或作者...
+Loading %d scripts...|||正在加载 %d 个脚本...
+Nothing run yet|||还没运行过
+MY NOTES|||我的笔记
+Write anything here: ideas, audio IDs, script names. It saves automatically.|||随便写：点子、音频 ID、脚本名。会自动保存。
+Type your notes here...|||在这里输入笔记...
+Copied!|||已复制！
+Hey %s! %d scripts loaded. Tap the round button or press %s to show/hide. Use the search tab to find any script, star your favorites, and paste any audio ID in the music tab.|||你好 %s！已加载 %d 个脚本。点圆形按钮或按 %s 显示/隐藏。用搜索页找任何脚本，点星标收藏，在音乐页粘贴任意音频 ID。
+Run it?|||要运行吗？
+Run!|||运行！
+Merry Christmas!|||圣诞快乐！
+ scripts  •  ||| 个脚本  •  
+Tap the round button to show/hide, = panic|||点圆形按钮显示/隐藏，= 紧急隐藏
+Show/hide: |||显示/隐藏：
+Panic: |||紧急隐藏：
+Hub by Rip_Silence & WH1T3 (Co-Owner), GUI by WH1T3. Thanks for using the hub!|||Hub 作者 Rip_Silence & WH1T3（副站长），界面 WH1T3。感谢使用！
+Sorry for the delay on V36, thanks for waiting!|||V36 更新来晚了，感谢等待！
+🆕 NEW SCRIPTS|||🆕 新脚本
+Every new script has a 🆕 in front of its name.|||每个新脚本名字前都有 🆕。
+SCRIPT OF THE DAY|||今日脚本
+All-time scripts run: %d|||累计运行脚本：%d
+Favorites: %d  •  ▶ This session: %d|||收藏：%d  •  ▶ 本次会话：%d
+Data Ping|||数据延迟
+FPS: %d  •  Ping: %s  •  |||FPS：%d  •  延迟：%s  •  
+ ms||| 毫秒
+n/a|||无
+Nothing to copy yet|||暂时没有可复制的内容
+Nothing here yet. Tap the ⋮ on any script and choose Favorite.|||这里还空着。点任意脚本上的 ⋮ 选「收藏」。
+Your top scripts show up here after you run a few.|||运行几个脚本后，你最常用的会出现在这里。
+Ran %dx|||已运行 %d 次
+RECENTLY RUN|||最近运行
+Scripts you run show up here.|||你运行过的脚本会出现在这里。
+Search all %d scripts or creators...|||搜索全部 %d 个脚本或作者...
+Type at least 2 letters to search every tab at once.|||输入至少 2 个字母就能一次搜遍所有分页。
+Nothing found for \"%s\".|||没找到 \"%s\"。
+Showing the first 40. Type more letters to narrow it down.|||只显示前 40 个，多打几个字母缩小范围。
+PLAY ANY AUDIO ID|||播放任意音频 ID
+Paste audio ID or link...|||粘贴音频 ID 或链接...
+▶ Play|||▶ 播放
+Where to get IDs: Creator Store > Audio, open a song and copy the number (or the whole link) from the page. Some audio is private and won't play. Tap Save to keep a song in Playlist.|||哪里找 ID：创作者商店 > 音频，打开一首歌，把页面上的数字（或整条链接）复制过来。有些音频是私有的，放不出来。点保存可以把歌留在播放列表。
+YOUR PLAYLIST|||你的播放列表
+Empty. Play an ID in the tab, then tap Save.|||空的。先在本页播放一个 ID，再点保存。
+Removed from playlist|||已从播放列表移除
+CHRISTMAS STUFF|||圣诞小玩意
+PlaceId: |||地图 ID：
+ | JobId: ||| | 服务器 ID：
+FPS boost ON|||FPS 提升 开
+FPS boost OFF|||FPS 提升 关
+EXECUTOR CHECK|||执行器检测
+Executor: |||执行器：
+If a script button fails, check the above first.|||如果脚本按钮点不动，先检查上面这些。
+Hub: |||Hub：
+Scripts: |||脚本：
+Language: |||语言：
+Mobile: |||手机端：
+loadstring: |||loadstring：
+writefile: |||writefile：
+setclipboard: |||setclipboard：
+Everything reset. Re-run the hub.|||已全部重置，请重新运行 Hub。
+CONTROLS (PC + MOBILE)|||操作（PC + 手机）
+Keyboard shortcuts: %s = show/hide, End = panic, Right Ctrl = run last script, Insert = music on/off. Turn OFF if you don't use a keyboard.|||快捷键：%s = 显示/隐藏，End = 紧急隐藏，右 Ctrl = 重跑上个脚本，Insert = 音乐开关。不用键盘的话可以关掉。
+%s selected. Re-run the hub to apply it.|||已选择 %s，重新运行 Hub 后生效。
+THE TEAM|||团队
+Tap a name or its three dots to see more.|||点名字或它右边的三个点查看更多。
+V36 UPDATE|||V36 更新
+Gold dust|||金粉
+Stop all|||全部停止
+⏱Reminder set for |||⏱ 提醒已设定：
+ min||| 分钟
+⏰ Your |||⏰ 你的
+ minute reminder is up!||| 分钟提醒到了！
+Players: %d/%d  •  Uptime: %dh %02dm|||玩家：%d/%d  •  运行时长：%d 小时 %02d 分
+Backup copied!|||备份已复制！
+Your executor can't copy to the clipboard|||你的执行器不能写剪贴板
+DAILY STREAK|||连续打卡
+ day streak  •  Best: ||| 天连续  •  最佳：
+ day streak||| 天连续
+My toggle|||我的开关
+loading |||正在加载 
+ scripts... sorry for the delay||| 个脚本... 久等了
+Welcome, %s!|||欢迎，%s！
+Hub Intro|||Hub 介绍
+[HalloweenHub] failed to start:|||[HalloweenHub] 启动失败：
