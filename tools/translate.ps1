@@ -128,7 +128,7 @@ $rxLog = New-Object System.Text.RegularExpressions.Regex('local UPDATE_LOGS = \{
 $logMatches = $rxLog.Matches($raw).Count
 $evLog = [System.Text.RegularExpressions.MatchEvaluator]{
   param($m)
-  return 'local UPDATE_LOGS = {' + "`r`n" + '[[' + $script:logRef + ']],' + "`r`n" + '}'
+  return 'local UPDATE_LOGS = {' + "`n" + '[[' + $script:logRef + ']],' + "`n" + '}'
 }
 if ($logMatches -gt 0) { $raw = $rxLog.Replace($raw, $evLog, 1) }
 Write-Output ('UPDATELOGS_MATCH=' + $logMatches)
