@@ -9,7 +9,9 @@
 
 | 文件 | 说明 |
 | --- | --- |
-| `scripts/Silence_Hub_V36_Christmas_CN.lua` | Silence Hub V36（圣诞版）完整中文化，可直接执行 |
+| `scripts/loader.lua` | **推荐入口**：先弹诊断窗口，再自动挑选可用镜像下载并执行汉化版 |
+| `scripts/Silence_Hub_V36_Christmas_CN_v2.lua` | 当前版本（修复启动崩溃），固定路径，不受旧缓存影响 |
+| `scripts/Silence_Hub_V36_Christmas_CN.lua` | 同内容的历史路径，仅为兼容旧链接保留 |
 | `originals/Silence_Hub_V36_Christmas.lua` | 作者原版，用于对照 / 回滚 |
 
 原作者：**Rip_Silence**（Owner） / **WH1T3**（Co-Owner，界面作者）。
@@ -18,22 +20,28 @@
 ## 使用方法
 
 1. 打开 Roblox 执行器（任何支持 `loadstring` + `game:HttpGet` 的执行器）。
-2. 粘贴下面这一行，回车：
+2. 粘贴下面这一行，回车（**推荐用诊断加载器**：它会先弹一个窗口，逐步显示「执行器 / 下载 / 字节数 / 编译 / 运行」的结果，失败也不会静默）：
 
 ```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/3091318935/hanhua-scripts/main/scripts/Silence_Hub_V36_Christmas_CN.lua"))()
+loadstring(game:HttpGet("https://cdn.jsdelivr.net/gh/3091318935/hanhua-scripts@main/scripts/loader.lua"))()
 ```
 
 3. 加载完成后按 **右 Shift** 呼出 / 收起面板（浮动圆形按钮同样可以）。
 4. 点按钮即可加载对应模式；带 `•••` 的按钮点开可看说明。
 
-如果执行器连不上 `raw.githubusercontent.com`（国内常见），换 jsDelivr 镜像，内容完全一样：
+想跳过诊断、直接跑本体，用这几行（三个地址内容完全一致，哪个能连上用哪个）：
 
 ```lua
-loadstring(game:HttpGet("https://cdn.jsdelivr.net/gh/3091318935/hanhua-scripts@main/scripts/Silence_Hub_V36_Christmas_CN.lua"))()
+-- 1) jsDelivr（国内最稳）
+loadstring(game:HttpGet("https://cdn.jsdelivr.net/gh/3091318935/hanhua-scripts@main/scripts/Silence_Hub_V36_Christmas_CN_v2.lua"))()
+-- 2) GitHub 源站
+loadstring(game:HttpGet("https://raw.githubusercontent.com/3091318935/hanhua-scripts/main/scripts/Silence_Hub_V36_Christmas_CN_v2.lua"))()
+-- 3) ghfast 加速镜像
+loadstring(game:HttpGet("https://ghfast.top/https://raw.githubusercontent.com/3091318935/hanhua-scripts/main/scripts/Silence_Hub_V36_Christmas_CN_v2.lua"))()
 ```
 
 > 分支保持 `main`，否则上面的链接要跟着改。
+> 文件名带 `_v2` 是刻意的：CDN 会缓存旧路径，换新文件名可以立刻拿到修复版。
 
 ## 汉化范围
 
@@ -77,7 +85,9 @@ loadstring(game:HttpGet("https://cdn.jsdelivr.net/gh/3091318935/hanhua-scripts@m
 hanhua-scripts/               （仓库名；标题为「汉化脚本合集」）
 ├── README.md
 ├── scripts/
-│   └── Silence_Hub_V36_Christmas_CN.lua     # 汉化版（发布用）
+│   ├── loader.lua                            # 诊断加载器（推荐入口）
+│   ├── Silence_Hub_V36_Christmas_CN_v2.lua   # 汉化版（当前版本，固定新路径）
+│   └── Silence_Hub_V36_Christmas_CN.lua      # 汉化版（历史路径，兼容旧链接）
 ├── originals/
 │   └── Silence_Hub_V36_Christmas.lua         # 原版（对照用）
 └── tools/
