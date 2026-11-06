@@ -2,6 +2,9 @@
 
 > 一个干净的 Roblox 脚本汉化仓库：**只翻译界面文字，不改动任何功能、链接与逻辑**。
 
+> 仓库地址：<https://github.com/3091318935/hanhua-scripts>
+> GitHub 的仓库名只接受 ASCII，中文名会被清洗成 `-`，所以目录名用 `hanhua-scripts`，**「汉化脚本合集」作为仓库标题与说明保留**。
+
 ## 收录内容
 
 | 文件 | 说明 |
@@ -18,7 +21,7 @@
 2. 粘贴下面这一行，回车：
 
 ```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/3091318935/%E6%B1%89%E5%8C%96%E8%84%9A%E6%9C%AC%E5%90%88%E9%9B%86/main/scripts/Silence_Hub_V36_Christmas_CN.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/3091318935/hanhua-scripts/main/scripts/Silence_Hub_V36_Christmas_CN.lua"))()
 ```
 
 3. 加载完成后按 **右 Shift** 呼出 / 收起面板（浮动圆形按钮同样可以）。
@@ -54,7 +57,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/3091318935/%E6%B1%89%
 ## 目录结构
 
 ```
-汉化脚本合集/
+hanhua-scripts/               （仓库名；标题为「汉化脚本合集」）
 ├── README.md
 ├── scripts/
 │   └── Silence_Hub_V36_Christmas_CN.lua     # 汉化版（发布用）
@@ -85,8 +88,17 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File tools\run2.ps1 -p tools\
 
 生成器只会替换**完整引号包裹**的字符串字面量（`"English"` → `"中文"`），因此不会误伤标识符、子串或代码结构；剩余的 `Made by X` / `Credit to X` / `Loads and runs X.` 这类模板句由正则兜底统一处理。
 
+改完重新发布（把 `scripts/` 里的成品提交上去）：
+
+```powershell
+git add -A
+git commit -m "更新汉化"
+git push
+```
+
 ## 注意事项
 
+- 代码里的英文注释保留原样（只影响改脚本的人，不影响面板显示）。
 - 大部分模式实际运行的是**第三方作者的远程脚本**，对方删库 / 改路径时对应按钮会失效，与汉化无关。
 - 少数模式（Impossible V1.8 Alpha、Fragmented 系列等）原版就标注「可能坏掉」，汉化版保持同样状态。
 - 文件编码为 **UTF-8（无 BOM）**，自己改文本请保持该编码，否则中文会乱码。
