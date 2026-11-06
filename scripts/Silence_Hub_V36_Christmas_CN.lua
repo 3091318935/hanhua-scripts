@@ -41,7 +41,7 @@ local CHAT_ANNOUNCE = true
 local CHAT_MESSAGES = {
 	"<b><font color='rgb(192, 54, 66)'>Silence Hub 已加载</font></b>",
 	"<b><font color='rgb(192, 54, 66)'>站长：Rip_Silence (#idkman06483)  |  副站长：WH1T3 (#relayhost) </font></b>",
-	"<b><font color='rgb(192, 54, 66)'>界面：WH1T3（副站长）   |   聊天签名文案鸣谢：RealblueYT</font></b>",
+	"<b><font color='rgb(192, 54, 66)'>界面：WH1T3（副站长）   |   聊天签名文案：RealblueYT</font></b>",
 	"<b><font color='rgb(192, 54, 66)'>V36 更新来晚了，感谢等待！</font></b>",
 }
 
