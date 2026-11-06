@@ -54,6 +54,17 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/3091318935/hanhua-scr
 
 > 主题色名（Cranberry / Holly / Gold / Frost / Candy / Bone / Ink / Ash）与天气名（Snow / Blizzard / Lights / Embers / leaves / rain / ghosts）已经翻成中文。存档里保存的仍是原英文名，所以**升级到汉化版后第一次启动时，主题色可能回落到默认的蔓越莓色**，手动再选一次即可，之后正常记住。
 
+### 引擎 API 字符串一律保护
+
+`game:GetService("Stats")`、`Instance.new("Frame")`、`:WaitForChild("Humanoid")`、`:FindFirstChild("RBXGeneral")`、`:IsA("BasePart")`、`ServerStatsItem["Data Ping"]` 这类**参数是引擎标识符**的字符串，生成器会先替换成占位符（`@@KEEP0001@@`），等全部翻译跑完再原样还原成英文。
+
+原因：这些字面量和界面文案共用同一段源码，一旦被翻译成中文就会直接报错——例如 `game:GetService("统计")` 会让整个面板在 `pcall` 里当场崩溃，玩家只会看到 `[HalloweenHub] 启动失败` 且**界面完全不显示**。生成器现在会在写文件前自检：`NON_ASCII_API_ARGS` 必须为 0，否则直接中止、不覆盖成品。
+
+## 更新记录
+
+- **2026-11-07 修复启动崩溃**：上一版把 `game:GetService("Stats")` 误译成 `game:GetService("统计")`，导致面板加载即失败（报 `'统计' is not a valid Service name`，界面空白）。已为全部引擎 API 字符串加保护通道，并把 `Stats`、`Data Ping` 从翻译表中移除。实测校验：字面量总数 1930/1930 一致、代码结构归一化后完全相同（70270 字符）、Lua 词法扫描 0 错误、`HttpGet` 331/331、`loadstring` 330/330。
+
+
 ## 目录结构
 
 ```
@@ -102,3 +113,4 @@ git push
 - 大部分模式实际运行的是**第三方作者的远程脚本**，对方删库 / 改路径时对应按钮会失效，与汉化无关。
 - 少数模式（Impossible V1.8 Alpha、Fragmented 系列等）原版就标注「可能坏掉」，汉化版保持同样状态。
 - 文件编码为 **UTF-8（无 BOM）**，自己改文本请保持该编码，否则中文会乱码。
+- 如果你之前用过英文原版，存档里的收藏 / 运行次数是按**英文模式名**记的，换成汉化版后这些旧记录不会自动对上（新装或清过存档的账号没有这个问题）。

@@ -1,16 +1,23 @@
 $ErrorActionPreference = 'Stop'
-$base    = 'D:\DSH ROBLOX\汉化脚本合集'
-$src     = Join-Path $base '原版\Silence_Hub_V36_Christmas.lua'
+
+# 仓库根目录：优先按本脚本位置推断（tools 的上一级），推断不出来时回退到本机工作目录
+$base = 'D:\DSH ROBLOX\汉化脚本合集'
+$here = $null
+try { if ($PSScriptRoot) { $here = Split-Path -Parent $PSScriptRoot } } catch { $here = $null }
+if ($here -and (Test-Path (Join-Path $here 'tools'))) { $base = $here }
+$src = Join-Path $base '原版\Silence_Hub_V36_Christmas.lua'
+if (-not (Test-Path $src)) { $src = Join-Path $base 'originals\Silence_Hub_V36_Christmas.lua' }
 $dstDir  = Join-Path $base '汉化版'
 $dst     = Join-Path $dstDir 'Silence_Hub_V36_Christmas_CN.lua'
 $logFile = 'D:\DSH ROBLOX\tools\更新日志_CN.txt'
-$missOut = 'D:\DSH ROBLOX\tools\未命中.txt'
+if (-not (Test-Path $logFile)) { $logFile = Join-Path $base 'tools\更新日志_CN.txt' }
+$missOut = Join-Path $env:TEMP '未命中.txt'
 $mapFiles = @(
-  'D:\DSH ROBLOX\汉化脚本合集\tools\翻译表_界面.tsv',
-  'D:\DSH ROBLOX\汉化脚本合集\tools\翻译表_杂项.tsv',
-  'D:\DSH ROBLOX\汉化脚本合集\tools\翻译表_界面2.tsv',
-  'D:\DSH ROBLOX\汉化脚本合集\tools\翻译表_修补.tsv',
-  'D:\DSH ROBLOX\汉化脚本合集\tools\翻译表_界面3.tsv'
+  (Join-Path $base 'tools\翻译表_界面.tsv'),
+  (Join-Path $base 'tools\翻译表_杂项.tsv'),
+  (Join-Path $base 'tools\翻译表_界面2.tsv'),
+  (Join-Path $base 'tools\翻译表_修补.tsv'),
+  (Join-Path $base 'tools\翻译表_界面3.tsv')
 )
 
 $utf8 = New-Object System.Text.UTF8Encoding($false)
@@ -18,6 +25,31 @@ if (-not (Test-Path $dstDir)) { New-Item -ItemType Directory -Force -Path $dstDi
 
 $raw = [IO.File]::ReadAllText($src, $utf8)
 $origBytes = $raw.Length
+
+# ================= 保护通道 =================
+# 引擎 API 的参数、实例名、服务名、属性名绝对不能被翻译，
+# 否则会出现 game:GetService("统计") -> '统计' is not a valid Service name 这类启动崩溃。
+$script:keepList = New-Object 'System.Collections.Generic.List[string]'
+$rxApiCall = New-Object System.Text.RegularExpressions.Regex('((?:GetService|Instance\.new|WaitForChild|FindFirstChildWhichIsA|FindFirstChildOfClass|FindFirstChild|IsA|GetAttribute|SetAttribute|GetPropertyChangedSignal|FireServer|InvokeServer)\s*\(\s*")((?:[^"\\]|\\.)*)(")')
+$evApiCall = [System.Text.RegularExpressions.MatchEvaluator]{
+  param($m)
+  [void]$script:keepList.Add($m.Groups[2].Value)
+  $n = $script:keepList.Count - 1
+  return $m.Groups[1].Value + '@@KEEP' + $n.ToString('D4') + '@@' + $m.Groups[3].Value
+}
+$apiProtected = $rxApiCall.Matches($raw).Count
+$raw = $rxApiCall.Replace($raw, $evApiCall)
+
+$rxApiIdx = New-Object System.Text.RegularExpressions.Regex('((?:ServerStatsItem|StatsItem)\[")((?:[^"\\]|\\.)*)("\])')
+$evApiIdx = [System.Text.RegularExpressions.MatchEvaluator]{
+  param($m)
+  [void]$script:keepList.Add($m.Groups[2].Value)
+  $n = $script:keepList.Count - 1
+  return $m.Groups[1].Value + '@@KEEP' + $n.ToString('D4') + '@@' + $m.Groups[3].Value
+}
+$apiProtected += $rxApiIdx.Matches($raw).Count
+$raw = $rxApiIdx.Replace($raw, $evApiIdx)
+Write-Output ('API_PROTECTED=' + $apiProtected)
 
 $map = @{}
 $dupWarn = 0
@@ -101,6 +133,16 @@ $evLog = [System.Text.RegularExpressions.MatchEvaluator]{
 if ($logMatches -gt 0) { $raw = $rxLog.Replace($raw, $evLog, 1) }
 Write-Output ('UPDATELOGS_MATCH=' + $logMatches)
 
+# ---- 还原保护通道：把引擎 API 字面量原样放回 ----
+for ($ki = 0; $ki -lt $script:keepList.Count; $ki++) {
+  $raw = $raw.Replace('@@KEEP' + $ki.ToString('D4') + '@@', $script:keepList[$ki])
+}
+$leftover = New-Object System.Text.RegularExpressions.Regex('@@KEEP\d{4}@@')
+Write-Output ('KEEP_RESTORED=' + $script:keepList.Count)
+Write-Output ('KEEP_LEFTOVER=' + $leftover.Matches($raw).Count)
+Write-Output ('SERVICE_STATS_OK=' + $raw.Contains('game:GetService("Stats")'))
+Write-Output ('PING_KEY_OK=' + $raw.Contains('ServerStatsItem["Data Ping"]'))
+
 $unused = New-Object 'System.Collections.Generic.List[string]'
 foreach ($k in $map.Keys) { if (-not $script:hitKeys.Contains($k)) { $unused.Add($k) } }
 [IO.File]::WriteAllText($missOut, ($unused -join "`r`n"), $utf8)
@@ -112,7 +154,16 @@ $sanity3 = $raw.Contains('加载并运行')
 Write-Output ('SANITY_NAME=' + $sanity1)
 Write-Output ('SANITY_UI=' + $sanity2)
 Write-Output ('SANITY_DESC=' + $sanity3)
-if (-not ($sanity1 -and $sanity3)) {
+
+# ---- API 字面量必须全 ASCII（防止再出现 GetService("统计") 这类启动崩溃）----
+$rxApiScan = New-Object System.Text.RegularExpressions.Regex('(?:GetService|Instance\.new|WaitForChild|FindFirstChildWhichIsA|FindFirstChildOfClass|FindFirstChild|IsA|GetAttribute|SetAttribute|FireServer|InvokeServer)\s*\(\s*"((?:[^"\\]|\\.)*)"')
+$rxIdxScan = New-Object System.Text.RegularExpressions.Regex('(?:ServerStatsItem|StatsItem)\["((?:[^"\\]|\\.)*)"\]')
+$badApi = 0
+foreach ($m in $rxApiScan.Matches($raw)) { if ($m.Groups[1].Value -match '[^\x00-\x7F]') { $badApi += 1 } }
+foreach ($m in $rxIdxScan.Matches($raw)) { if ($m.Groups[1].Value -match '[^\x00-\x7F]') { $badApi += 1 } }
+Write-Output ('NON_ASCII_API_ARGS=' + $badApi)
+
+if ((-not ($sanity1 -and $sanity3)) -or $badApi -gt 0 -or $leftover.Matches($raw).Count -gt 0 -or -not $raw.Contains('game:GetService("Stats")')) {
   Write-Output 'ABORT=sanity_failed'
   exit 3
 }

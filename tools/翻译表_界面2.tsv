@@ -75,7 +75,7 @@ Every new script has a 🆕 in front of its name.|||每个新脚本名字前都�
 SCRIPT OF THE DAY|||今日脚本
 All-time scripts run: %d|||累计运行脚本：%d
 Favorites: %d  •  ▶ This session: %d|||收藏：%d  •  ▶ 本次会话：%d
-Data Ping|||数据延迟
+# 78: Data Ping 是 Stats 服务的计数器名 ServerStatsItem["Data Ping"]，不能翻译，已移除
 FPS: %d  •  Ping: %s  •  |||FPS：%d  •  延迟：%s  •  
  ms||| 毫秒
 n/a|||无

@@ -4984,7 +4984,7 @@ local ok, err = pcall(function()
 		statsLabel.Text = TF("收藏：%d  •  ▶ 本次会话：%d", favCount, hub.sessionRuns or 0)
 	end
 
-	local StatsService = game:GetService("统计")
+	local StatsService = game:GetService("Stats")
 	local sessionStart = os.clock()
 	local frames, lastTime = 0, os.clock()
 	track(RunService.RenderStepped:Connect(function()
@@ -4992,7 +4992,7 @@ local ok, err = pcall(function()
 		local now = os.clock()
 		if now - lastTime >= 1 then
 			local okPing, ping = pcall(function()
-				return StatsService.Network.ServerStatsItem["数据延迟"]:GetValue()
+				return StatsService.Network.ServerStatsItem["Data Ping"]:GetValue()
 			end)
 			local up = math.floor(now - sessionStart)
 			fpsLabel.Text = string.format(
