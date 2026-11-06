@@ -27,6 +27,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/3091318935/hanhua-scr
 3. 加载完成后按 **右 Shift** 呼出 / 收起面板（浮动圆形按钮同样可以）。
 4. 点按钮即可加载对应模式；带 `•••` 的按钮点开可看说明。
 
+如果执行器连不上 `raw.githubusercontent.com`（国内常见），换 jsDelivr 镜像，内容完全一样：
+
+```lua
+loadstring(game:HttpGet("https://cdn.jsdelivr.net/gh/3091318935/hanhua-scripts@main/scripts/Silence_Hub_V36_Christmas_CN.lua"))()
+```
+
 > 分支保持 `main`，否则上面的链接要跟着改。
 
 ## 汉化范围
