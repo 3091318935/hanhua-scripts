@@ -5725,7 +5725,7 @@ local ok, err = pcall(function()
 
 	addSection(effectsTab, "特效")
 	local effectSwitches = {} -- so "全部停止" can flip the switches back off
-	for _, kind in ipairs({ "下雪", "落叶", "下雨", "幽灵", "余烬" }) do
+	for _, kind in ipairs({ "snow", "leaves", "rain", "ghosts", "embers" }) do
 		local def = EFFECTS[kind]
 		local _, setSwitch = addToggle(effectsTab, {
 			name = def.name,

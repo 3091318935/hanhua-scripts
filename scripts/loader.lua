@@ -11,14 +11,28 @@
 local LOADER_VER = "CN-LOADER-1"
 local REPO = "3091318935/hanhua-scripts"
 
-local TARGETS = {
-	{ n = "jsDelivr v2",        u = "https://cdn.jsdelivr.net/gh/" .. REPO .. "@main/scripts/Silence_Hub_V36_Christmas_CN_v2.lua" },
-	{ n = "fastly.jsDelivr v2", u = "https://fastly.jsdelivr.net/gh/" .. REPO .. "@main/scripts/Silence_Hub_V36_Christmas_CN_v2.lua" },
-	{ n = "gcore.jsDelivr v2",  u = "https://gcore.jsdelivr.net/gh/" .. REPO .. "@main/scripts/Silence_Hub_V36_Christmas_CN_v2.lua" },
-	{ n = "jsDelivr 旧路径",    u = "https://cdn.jsdelivr.net/gh/" .. REPO .. "@main/scripts/Silence_Hub_V36_Christmas_CN.lua" },
-	{ n = "raw.githubusercontent", u = "https://raw.githubusercontent.com/" .. REPO .. "/main/scripts/Silence_Hub_V36_Christmas_CN_v2.lua" },
-	{ n = "ghfast 镜像",        u = "https://ghfast.top/https://raw.githubusercontent.com/" .. REPO .. "/main/scripts/Silence_Hub_V36_Christmas_CN_v2.lua" },
+local HOSTS = {
+	{ n = "fastly.jsDelivr",  p = "https://fastly.jsdelivr.net/gh/" .. REPO .. "@main/scripts/" },
+	{ n = "gcore.jsDelivr",   p = "https://gcore.jsdelivr.net/gh/" .. REPO .. "@main/scripts/" },
+	{ n = "testingcf.jsDelivr", p = "https://testingcf.jsdelivr.net/gh/" .. REPO .. "@main/scripts/" },
+	{ n = "cdn.jsDelivr",     p = "https://cdn.jsdelivr.net/gh/" .. REPO .. "@main/scripts/" },
+	{ n = "raw.githubusercontent", p = "https://raw.githubusercontent.com/" .. REPO .. "/main/scripts/" },
+	{ n = "ghfast",           p = "https://ghfast.top/https://raw.githubusercontent.com/" .. REPO .. "/main/scripts/" },
+	{ n = "gitmirror",        p = "https://raw.gitmirror.com/" .. REPO .. "/main/scripts/" },
 }
+
+local FILES = {
+	"Silence_Hub_V36_Christmas_CN_v3.lua",
+	"Silence_Hub_V36_Christmas_CN_v2.lua",
+}
+
+local TARGETS = {}
+for _, f in ipairs(FILES) do
+	local tag = string.match(f, "CN_(%w+)%.lua$") or "?"
+	for _, h in ipairs(HOSTS) do
+		table.insert(TARGETS, { n = h.n .. " · " .. tag, u = h.p .. f })
+	end
+end
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer

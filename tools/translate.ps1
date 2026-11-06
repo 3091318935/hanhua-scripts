@@ -70,11 +70,18 @@ Write-Output ('MAP_DUP=' + $dupWarn)
 $script:mapRef = $map
 $script:hitKeys = New-Object 'System.Collections.Generic.HashSet[string]'
 $script:hitCount = 0
+$script:lowerSkip = 0
 
 $rxStr = New-Object System.Text.RegularExpressions.Regex('"((?:[^"\\]|\\.)*)"')
 $evMap = [System.Text.RegularExpressions.MatchEvaluator]{
   param($m)
   $inner = $m.Groups[1].Value
+  # 纯小写标识符（snow/leaves/rain/ghosts/embers 这类内部 key）绝不翻译，
+  # 它们是表键，翻了会让 EFFECTS[kind] / TBL[key] 取到 nil 直接崩。
+  if ($inner -cmatch '^[a-z][a-z0-9_]*$') {
+    $script:lowerSkip += 1
+    return $m.Value
+  }
   if ($script:mapRef.ContainsKey($inner)) {
     $script:hitCount += 1
     [void]$script:hitKeys.Add($inner)
@@ -162,8 +169,23 @@ $badApi = 0
 foreach ($m in $rxApiScan.Matches($raw)) { if ($m.Groups[1].Value -match '[^\x00-\x7F]') { $badApi += 1 } }
 foreach ($m in $rxIdxScan.Matches($raw)) { if ($m.Groups[1].Value -match '[^\x00-\x7F]') { $badApi += 1 } }
 Write-Output ('NON_ASCII_API_ARGS=' + $badApi)
+Write-Output ('LOWER_IDENT_SKIPPED=' + $script:lowerSkip)
 
-if ((-not ($sanity1 -and $sanity3)) -or $badApi -gt 0 -or $leftover.Matches($raw).Count -gt 0 -or -not $raw.Contains('game:GetService("Stats")')) {
+# ---- 内部 key 列表必须保持英文（否则 EFFECTS[kind] 取到 nil）----
+$effectsListOk = $raw.Contains('ipairs({ "snow", "leaves", "rain", "ghosts", "embers" })')
+Write-Output ('EFFECTS_LIST_OK=' + $effectsListOk)
+$rxCnIndex = New-Object System.Text.RegularExpressions.Regex('\[\s*"((?:[^"\\]|\\.)*)"\s*\]')
+$cnIndexBad = 0
+foreach ($m in $rxCnIndex.Matches($raw)) {
+  $v = $m.Groups[1].Value
+  if ($v -match '[^\x00-\x7F]') {
+    # 只允许与界面名同源的 refreshers / NEW_SCRIPTS 键
+    if (-not ($v -eq '主页' -or $v -eq '收藏' -or $v -eq '播放列表' -or $v -eq '疯狂模式 1.2' -or $v -eq '懒得写说明了')) { $cnIndexBad += 1 }
+  }
+}
+Write-Output ('CN_INDEX_OTHER=' + $cnIndexBad)
+
+if ((-not ($sanity1 -and $sanity3)) -or $badApi -gt 0 -or $leftover.Matches($raw).Count -gt 0 -or -not $raw.Contains('game:GetService("Stats")') -or -not $effectsListOk -or $cnIndexBad -gt 0) {
   Write-Output 'ABORT=sanity_failed'
   exit 3
 }
